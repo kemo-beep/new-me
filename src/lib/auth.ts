@@ -40,8 +40,6 @@ export const auth = betterAuth({
                 }
             })
         ] : []),
-        openAPI(),
-        anonymous()
-
+        openAPI()
     ]
 });

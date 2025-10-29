@@ -54,43 +54,49 @@ export default function HabitsPage() {
     const avgCompletionRate = habits.reduce((sum, h) => sum + h.completionRate, 0) / habits.length
 
     return (
-        <div className="container mx-auto p-4 md:p-6 space-y-6">
+        <div className="container mx-auto p-4 md:p-6 space-y-6 animate-fade-in">
             {/* Header Stats */}
             <div className="grid gap-4 md:grid-cols-3">
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-orange-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Total Streaks</CardTitle>
-                        <Flame className="h-5 w-5 text-orange-500" />
+                        <div className="p-2 bg-orange-500/10 dark:bg-orange-900/20 rounded-lg group-hover:bg-orange-500/20 dark:group-hover:bg-orange-900/30 transition-colors">
+                            <Flame className="h-5 w-5 text-orange-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">{totalStreak}</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold mb-1">{totalStreak}</div>
+                        <p className="text-xs text-muted-foreground">
                             Combined fire power
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-indigo-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Active Habits</CardTitle>
-                        <Calendar className="h-5 w-5 text-indigo-500" />
+                        <div className="p-2 bg-indigo-500/10 dark:bg-indigo-900/20 rounded-lg group-hover:bg-indigo-500/20 dark:group-hover:bg-indigo-900/30 transition-colors">
+                            <Calendar className="h-5 w-5 text-indigo-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">{activeHabits.length}</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold mb-1">{activeHabits.length}</div>
+                        <p className="text-xs text-muted-foreground">
                             {habits.length} total habits
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-green-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Avg Completion</CardTitle>
-                        <TrendingUp className="h-5 w-5 text-green-500" />
+                        <div className="p-2 bg-green-500/10 dark:bg-green-900/20 rounded-lg group-hover:bg-green-500/20 dark:group-hover:bg-green-900/30 transition-colors">
+                            <TrendingUp className="h-5 w-5 text-green-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">{Math.round(avgCompletionRate * 100)}%</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold mb-1">{Math.round(avgCompletionRate * 100)}%</div>
+                        <p className="text-xs text-muted-foreground">
                             This week
                         </p>
                     </CardContent>
@@ -102,12 +108,14 @@ export default function HabitsPage() {
                 <Button
                     variant={activeTab === "active" ? "default" : "ghost"}
                     onClick={() => setActiveTab("active")}
+                    className="hover:scale-105 transition-transform"
                 >
                     Active ({activeHabits.length})
                 </Button>
                 <Button
                     variant={activeTab === "all" ? "default" : "ghost"}
                     onClick={() => setActiveTab("all")}
+                    className="hover:scale-105 transition-transform"
                 >
                     All Habits ({habits.length})
                 </Button>
@@ -116,16 +124,19 @@ export default function HabitsPage() {
             {/* Habits List */}
             <div className="space-y-4">
                 {habits.map((habit) => (
-                    <Card key={habit.id} className="hover:shadow-md transition-shadow">
+                    <Card key={habit.id} className="hover:shadow-lg transition-all duration-300 hover:border-primary/50 cursor-pointer group">
                         <CardHeader>
                             <div className="flex items-start justify-between">
                                 <div className="space-y-1">
-                                    <CardTitle className="text-xl">{habit.name}</CardTitle>
+                                    <CardTitle className="text-xl flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                                        {habit.name}
+                                    </CardTitle>
                                     {habit.description && (
                                         <CardDescription>{habit.description}</CardDescription>
                                     )}
                                 </div>
-                                <Badge variant={habit.isActive ? "default" : "secondary"}>
+                                <Badge variant={habit.isActive ? "default" : "secondary"} className="hover:scale-105 transition-transform">
                                     {habit.recurrence}
                                 </Badge>
                             </div>
@@ -166,14 +177,14 @@ export default function HabitsPage() {
                                 <div className="flex gap-2 pt-2">
                                     <Button
                                         variant="default"
-                                        className="flex-1"
+                                        className="flex-1 hover:scale-105 transition-transform"
                                         asChild
                                     >
                                         <Link href={`/dashboard/habits/${habit.id}`}>
                                             View Details
                                         </Link>
                                     </Button>
-                                    <Button variant="outline" size="icon">
+                                    <Button variant="outline" size="icon" className="hover:scale-105 transition-transform">
                                         <Plus className="h-4 w-4" />
                                     </Button>
                                 </div>

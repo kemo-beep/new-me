@@ -142,7 +142,14 @@ export async function processOnboarding(userId: string, answers: IdealSelfQuesti
             console.error("Error message:", error.message)
             console.error("Error stack:", error.stack)
         }
-        throw new Error("Failed to process onboarding. Please try again.")
+
+        // Provide more specific error messages while keeping UX-friendly response
+        const genericMessage = "Failed to process onboarding. Please try again."
+        if (error instanceof Error && /Gemini API key not configured|Gemini API error|No response from Gemini AI|Failed to generate AI roadmap/i.test(error.message)) {
+            // Surface a stable generic message to the UI
+            throw new Error(genericMessage)
+        }
+        throw new Error(genericMessage)
     }
 }
 

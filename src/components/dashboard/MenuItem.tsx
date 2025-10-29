@@ -36,13 +36,12 @@ const MenuItem = ({ item, isCollapsed }: MenuItemProps) => {
     <>
       <Icon
         name={item.icon}
-        className={`w-5 h-5 flex-shrink-0 ${
-          isActive && mounted
+        className={`w-5 h-5 flex-shrink-0 ${isActive && mounted
             ? resolvedTheme === "dark"
               ? "text-[#44cc00]"
               : "text-white"
             : ""
-        }`}
+          }`}
       />
       {!isCollapsed && (
         <>
@@ -62,13 +61,11 @@ const MenuItem = ({ item, isCollapsed }: MenuItemProps) => {
       {item.href ? (
         <Link
           href={item.href}
-          className={`w-full flex items-center px-4 py-2 rounded-lg transition-colors ${
-            isCollapsed ? "justify-center" : ""
-          } ${
-            isActive
-              ? "text-white bg-sidebar-primary-foreground"
-              : "text-[#7A7A7A] hover:text-white hover:bg-sidebar-primary-foreground"
-          }`}
+          className={`w-full flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${isCollapsed ? "justify-center" : ""
+            } ${isActive
+              ? "text-white bg-gradient-to-r from-[#44cc00]/20 to-transparent border-l-2 border-[#44cc00] shadow-lg"
+              : "text-[#7A7A7A] hover:text-white hover:bg-sidebar-accent/50 hover:translate-x-1"
+            }`}
           onMouseEnter={() => isCollapsed && setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
         >
@@ -77,13 +74,11 @@ const MenuItem = ({ item, isCollapsed }: MenuItemProps) => {
       ) : (
         <button
           onClick={() => hasSubmenu && setIsOpen(!isOpen)}
-          className={`w-full flex items-center px-4 py-2 rounded-lg transition-colors ${
-            isCollapsed ? "justify-center" : ""
-          } ${
-            isActive
-              ? "text-white bg-sidebar-primary-foreground"
-              : "text-[#7A7A7A] hover:text-white hover:bg-sidebar-primary-foreground"
-          }`}
+          className={`w-full flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${isCollapsed ? "justify-center" : ""
+            } ${isActive
+              ? "text-white bg-gradient-to-r from-[#44cc00]/20 to-transparent border-l-2 border-[#44cc00] shadow-lg"
+              : "text-[#7A7A7A] hover:text-white hover:bg-sidebar-accent/50 hover:translate-x-1"
+            }`}
           onMouseEnter={() => isCollapsed && setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
         >
@@ -93,7 +88,7 @@ const MenuItem = ({ item, isCollapsed }: MenuItemProps) => {
 
       {/* Tooltip */}
       {isCollapsed && showTooltip && (
-        <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 z-50 px-2 py-1 rounded text-sm whitespace-nowrap bg-[#44cc00] text-white">
+        <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 z-50 px-3 py-1.5 rounded-lg text-sm whitespace-nowrap bg-[#44cc00] text-white shadow-xl animate-fade-in">
           {item.label}
           <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 rotate-45 bg-[#44cc00]"></div>
         </div>

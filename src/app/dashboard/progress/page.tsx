@@ -36,62 +36,73 @@ export default function ProgressPage() {
     const avgLifeAreasScore = lifeAreas.reduce((sum, area) => sum + area.score, 0) / lifeAreas.length
 
     return (
-        <div className="container mx-auto p-4 md:p-6 space-y-6">
+        <div className="container mx-auto p-4 md:p-6 space-y-6 animate-fade-in">
             {/* Main Stats */}
             <div className="grid gap-4 md:grid-cols-4">
-                <Card className="border-2 border-indigo-200 dark:border-indigo-900">
+                <Card className="border-2 border-indigo-200/50 dark:border-indigo-900/50 hover:border-indigo-300/50 dark:hover:border-indigo-700/50 transition-all duration-300 hover:shadow-lg group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Ideal Self Alignment</CardTitle>
-                        <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                        <div className="p-2 bg-indigo-500/10 dark:bg-indigo-900/20 rounded-lg group-hover:bg-indigo-500/20 dark:group-hover:bg-indigo-900/30 transition-colors">
+                            <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
+                        <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">
                             {idealSelfAlignment}%
                         </div>
-                        <Progress value={idealSelfAlignment} className="mt-2 h-2" />
+                        <Progress value={idealSelfAlignment} className="h-2" />
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-orange-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Current Streak</CardTitle>
-                        <Flame className="h-5 w-5 text-orange-500" />
+                        <div className="p-2 bg-orange-500/10 dark:bg-orange-900/20 rounded-lg group-hover:bg-orange-500/20 dark:group-hover:bg-orange-900/30 transition-colors">
+                            <Flame className="h-5 w-5 text-orange-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-orange-500">{currentStreak}</div>
-                        <p className="text-xs text-muted-foreground mt-1">Days on fire</p>
+                        <div className="text-4xl font-bold text-orange-500 mb-1">{currentStreak}</div>
+                        <p className="text-xs text-muted-foreground">Days on fire</p>
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-yellow-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Level</CardTitle>
-                        <Award className="h-5 w-5 text-yellow-500" />
+                        <div className="p-2 bg-yellow-500/10 dark:bg-yellow-900/20 rounded-lg group-hover:bg-yellow-500/20 dark:group-hover:bg-yellow-900/30 transition-colors">
+                            <Award className="h-5 w-5 text-yellow-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-yellow-500">{level}</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold text-yellow-500 mb-1">{level}</div>
+                        <p className="text-xs text-muted-foreground">
                             {xpForNextLevel} XP to Level {level + 1}
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-purple-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Total XP</CardTitle>
-                        <TrendingUp className="h-5 w-5 text-purple-500" />
+                        <div className="p-2 bg-purple-500/10 dark:bg-purple-900/20 rounded-lg group-hover:bg-purple-500/20 dark:group-hover:bg-purple-900/30 transition-colors">
+                            <TrendingUp className="h-5 w-5 text-purple-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-purple-500">{totalXP}</div>
-                        <p className="text-xs text-muted-foreground mt-1">All time earned</p>
+                        <div className="text-4xl font-bold text-purple-500 mb-1">{totalXP}</div>
+                        <p className="text-xs text-muted-foreground">All time earned</p>
                     </CardContent>
                 </Card>
             </div>
 
             {/* Life Areas Radar */}
-            <Card>
+            <Card className="hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                    <CardTitle>Life Areas Progress</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                        <Target className="w-5 h-5 text-primary" />
+                        Life Areas Progress
+                    </CardTitle>
                     <CardDescription>
                         Your alignment across different life areas
                     </CardDescription>
@@ -99,14 +110,14 @@ export default function ProgressPage() {
                 <CardContent>
                     <div className="space-y-4">
                         {lifeAreas.map((area) => (
-                            <div key={area.name} className="space-y-2">
+                            <div key={area.name} className="space-y-2 group">
                                 <div className="flex justify-between text-sm">
                                     <span className="font-medium">{area.name}</span>
                                     <span className="text-muted-foreground">{area.score}%</span>
                                 </div>
-                                <div className="w-full bg-secondary rounded-full h-3">
+                                <div className="w-full bg-secondary rounded-full h-3 overflow-hidden">
                                     <div
-                                        className={`${area.color} h-3 rounded-full transition-all`}
+                                        className={`${area.color} h-3 rounded-full transition-all duration-500 group-hover:scale-y-110`}
                                         style={{ width: `${area.score}%` }}
                                     />
                                 </div>
@@ -123,9 +134,12 @@ export default function ProgressPage() {
             </Card>
 
             {/* Weekly Activity */}
-            <Card>
+            <Card className="hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                    <CardTitle>Weekly Activity</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                        <Calendar className="w-5 h-5 text-primary" />
+                        Weekly Activity
+                    </CardTitle>
                     <CardDescription>
                         Your performance over the past 7 days
                     </CardDescription>
@@ -144,11 +158,11 @@ export default function ProgressPage() {
 
                         <div className="space-y-2">
                             {weeklyData.map((day) => (
-                                <div key={day.day} className="flex items-center gap-4">
+                                <div key={day.day} className="flex items-center gap-4 group cursor-pointer hover:translate-x-2 transition-transform">
                                     <div className="w-12 text-sm font-medium">{day.day}</div>
-                                    <div className="flex-1 bg-secondary rounded-full h-6 relative">
+                                    <div className="flex-1 bg-secondary rounded-full h-6 relative overflow-hidden">
                                         <div
-                                            className="bg-primary h-6 rounded-full"
+                                            className="bg-gradient-to-r from-primary to-primary/80 h-6 rounded-full transition-all duration-300"
                                             style={{ width: `${(day.total / 15) * 100}%` }}
                                         />
                                     </div>
@@ -163,10 +177,12 @@ export default function ProgressPage() {
             </Card>
 
             {/* AI Insights */}
-            <Card className="border-l-4 border-l-indigo-500">
+            <Card className="border-l-4 border-l-indigo-500 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-indigo-50/50 to-transparent dark:from-indigo-950/20">
                 <CardHeader>
                     <div className="flex items-center gap-2">
-                        <TrendingUp className="h-5 w-5 text-indigo-500" />
+                        <div className="p-2 bg-indigo-500/10 rounded-lg">
+                            <TrendingUp className="h-5 w-5 text-indigo-500" />
+                        </div>
                         <CardTitle>AI Weekly Summary</CardTitle>
                     </div>
                     <CardDescription>

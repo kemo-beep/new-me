@@ -48,43 +48,49 @@ export default function TasksPage() {
     const overallProgress = (completedTasks / totalTasks) * 100
 
     return (
-        <div className="container mx-auto p-4 md:p-6 space-y-6">
+        <div className="container mx-auto p-4 md:p-6 space-y-6 animate-fade-in">
             {/* Header Stats */}
             <div className="grid gap-4 md:grid-cols-3">
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-indigo-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Total Tasks</CardTitle>
-                        <Target className="h-5 w-5 text-indigo-500" />
+                        <div className="p-2 bg-indigo-500/10 dark:bg-indigo-900/20 rounded-lg group-hover:bg-indigo-500/20 dark:group-hover:bg-indigo-900/30 transition-colors">
+                            <Target className="h-5 w-5 text-indigo-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">{totalTasks}</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold mb-1">{totalTasks}</div>
+                        <p className="text-xs text-muted-foreground">
                             {completedTasks} completed
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-purple-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Milestones</CardTitle>
-                        <Calendar className="h-5 w-5 text-purple-500" />
+                        <div className="p-2 bg-purple-500/10 dark:bg-purple-900/20 rounded-lg group-hover:bg-purple-500/20 dark:group-hover:bg-purple-900/30 transition-colors">
+                            <Calendar className="h-5 w-5 text-purple-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">{milestones.length}</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold mb-1">{milestones.length}</div>
+                        <p className="text-xs text-muted-foreground">
                             Active milestones
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="hover:shadow-lg transition-all duration-300 hover:border-green-500/30 group">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Progress</CardTitle>
-                        <TrendingUp className="h-5 w-5 text-green-500" />
+                        <div className="p-2 bg-green-500/10 dark:bg-green-900/20 rounded-lg group-hover:bg-green-500/20 dark:group-hover:bg-green-900/30 transition-colors">
+                            <TrendingUp className="h-5 w-5 text-green-500" />
+                        </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">{Math.round(overallProgress)}%</div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <div className="text-4xl font-bold mb-1">{Math.round(overallProgress)}%</div>
+                        <p className="text-xs text-muted-foreground">
                             Overall completion
                         </p>
                     </CardContent>
@@ -92,9 +98,12 @@ export default function TasksPage() {
             </div>
 
             {/* Milestones */}
-            <Card>
+            <Card className="hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                    <CardTitle>Milestones</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                        <Target className="w-5 h-5 text-primary" />
+                        Milestones
+                    </CardTitle>
                     <CardDescription>
                         Track your progress toward your goals
                     </CardDescription>
@@ -108,7 +117,9 @@ export default function TasksPage() {
                         return (
                             <Card
                                 key={milestone.id}
-                                className={`cursor-pointer transition-all ${selectedMilestone === milestone.id ? "border-primary border-2" : ""
+                                className={`cursor-pointer transition-all duration-200 hover:scale-[1.01] hover:shadow-md ${selectedMilestone === milestone.id
+                                        ? "border-primary border-2 shadow-lg bg-gradient-to-br from-primary/5 to-transparent"
+                                        : "hover:border-primary/50"
                                     }`}
                                 onClick={() => setSelectedMilestone(
                                     selectedMilestone === milestone.id ? null : milestone.id
@@ -149,16 +160,19 @@ export default function TasksPage() {
             </Card>
 
             {/* Tasks List */}
-            <Card>
+            <Card className="hover:shadow-lg transition-all duration-300">
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <div>
-                            <CardTitle>Tasks</CardTitle>
+                            <CardTitle className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+                                Tasks
+                            </CardTitle>
                             <CardDescription>
                                 {selectedMilestone ? "Filtered tasks" : "All tasks"}
                             </CardDescription>
                         </div>
-                        <Button size="sm">
+                        <Button size="sm" className="hover:scale-105 transition-transform">
                             <Plus className="h-4 w-4 mr-2" />
                             Add Task
                         </Button>
@@ -169,9 +183,12 @@ export default function TasksPage() {
                         {selectedTasks.map((task) => (
                             <div
                                 key={task.id}
-                                className="flex items-center gap-3 p-3 border rounded-lg hover:bg-accent transition-colors"
+                                className="flex items-center gap-3 p-3 border rounded-lg hover:bg-accent/50 transition-all duration-200 hover:scale-[1.01] hover:shadow-sm cursor-pointer group"
                             >
-                                <Checkbox checked={task.completed} />
+                                <Checkbox
+                                    checked={task.completed}
+                                    className="group-hover:ring-2 group-hover:ring-primary/50 transition-all"
+                                />
                                 <div className="flex-1">
                                     <p className={`font-medium ${task.completed ? "line-through text-muted-foreground" : ""}`}>
                                         {task.name}
